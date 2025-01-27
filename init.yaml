@@ -42,7 +42,8 @@
         name: sysadm
         uid: 1100
         shell: /bin/bash
-        group: sudo
+        groups: sudo
+        append: true
         state: present
 
     - name: create the .ssh directory for the sysadm user and set permissions
