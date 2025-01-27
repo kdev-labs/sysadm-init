@@ -7,57 +7,62 @@
 # create the .ssh directory for the sysadm user and set permissions
 # Allow sysadm passwordless sudo
 
-- name: Create 'kregez' user locally
+- name: Initial setup
   hosts: localhost
   connection: local
-  user:
-    name: kregez
-    uid: 1900
-    shell: /bin/bash
-    state: present
+  tasks:
+    - name: Create 'kregez' user locally
+      hosts: localhost
+      connection: local
+      user:
+        name: kregez
+        uid: 1900
+        shell: /bin/bash
+        state: present
 
-- name: Create .ssh directory for 'kregez' user and set permissions
-  hosts: localhost
-  file:
-    path: /home/kregez/.ssh
-    state: directory
-    owner: kregez
-    group: kregez
-    mode: '0700'
+    - name: Create .ssh directory for 'kregez' user and set permissions
+      hosts: localhost
+      file:
+        path: /home/kregez/.ssh
+        state: directory
+        owner: kregez
+        group: kregez
+        mode: '0700'
 
-- name: add public key to authorized_keys
-  hosts: localhost
-  authorized_key:
-    user: kregez
-    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwyDlkeiHXgqfhpbgEhd/Huz4ruv9qUaWhZq16CrZ2zul5cgNSByrpzhs9jedQSCXSa3fj3LExpZJzzqjS+op8DkyZuQJCa6DFainGUzXgjrMAnHmYxvj5Jj/+mi4POdxdFeY6TPxz2ZvAtpG6hKkvRimfoyo/9T+qYU0o1rAMuzrX4ldCQnLr2RTjYApxlauv2l8qScSLmGKEseuofO4766FOwgWCJu7/nVo4UrfwuIlS0/X7+rVPZkdBJAXwrXp5SJh+RLLInahKY1OtjMEotFq67OHBjsTdVPFItg4csDyCOXAda+Z8t8rrA5gh1Fxj53Epla3e8ZhVFnlspnZTwWNZc9HXgjZKOR/9TdrvYb6cRAaXG1Gkvw5O9SSykBC+gi+S0rfkDNWrq+o1Ve+WXsMPiR7HIwRp5q67xUgYyxELym6O+B9Mj+DkZq+VxzxI1w/6o2mQWqM8/bJ/88yohDroH8C3dwJ7lGtjLT7YldzGkCYZ/H0OBnuv/05aa9fZ7asL1iY+ORJTe7XEmSMQvnjKMx1rYTaZRn5Hwoz0OQvFZIMSnNuo2tnRaEi4aUakcmbWzGDiivW6/BBJAdD8MOkJYGnAtXaM3vQEqHzWb5BV0w65h8+hCXz6B8fkFR+MvxBNt4xwA3yGqdSC5faIDrrPO8zjPxU9lEXMjiThkQ== krege@DESKTOP-DOJAK6J"
-    state: present
+    - name: add public key to authorized_keys
+      hosts: localhost
+      authorized_key:
+        user: kregez
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwyDlkeiHXgqfhpbgEhd/Huz4ruv9qUaWhZq16CrZ2zul5cgNSByrpzhs9jedQSCXSa3fj3LExpZJzzqjS+op8DkyZuQJCa6DFainGUzXgjrMAnHmYxvj5Jj/+mi4POdxdFeY6TPxz2ZvAtpG6hKkvRimfoyo/9T+qYU0o1rAMuzrX4ldCQnLr2RTjYApxlauv2l8qScSLmGKEseuofO4766FOwgWCJu7/nVo4UrfwuIlS0/X7+rVPZkdBJAXwrXp5SJh+RLLInahKY1OtjMEotFq67OHBjsTdVPFItg4csDyCOXAda+Z8t8rrA5gh1Fxj53Epla3e8ZhVFnlspnZTwWNZc9HXgjZKOR/9TdrvYb6cRAaXG1Gkvw5O9SSykBC+gi+S0rfkDNWrq+o1Ve+WXsMPiR7HIwRp5q67xUgYyxELym6O+B9Mj+DkZq+VxzxI1w/6o2mQWqM8/bJ/88yohDroH8C3dwJ7lGtjLT7YldzGkCYZ/H0OBnuv/05aa9fZ7asL1iY+ORJTe7XEmSMQvnjKMx1rYTaZRn5Hwoz0OQvFZIMSnNuo2tnRaEi4aUakcmbWzGDiivW6/BBJAdD8MOkJYGnAtXaM3vQEqHzWb5BV0w65h8+hCXz6B8fkFR+MvxBNt4xwA3yGqdSC5faIDrrPO8zjPxU9lEXMjiThkQ== krege@DESKTOP-DOJAK6J"
+        state: present
 
-- name: Install sudo
-  ansible.builtin.package:
-    name: sudo
-    state: present
+    - name: Install sudo
+      hosts: localhost
+      ansible.builtin.package:
+        name: sudo
+        state: present
 
-- name: create the sysadm user locally
-  hosts: localhost
-  connection: local
-  user:
-    name: sysadm
-    uid: 1100
-    shell: /bin/bash
-    group: sudo
-    state: present
+    - name: create the sysadm user locally
+      hosts: localhost
+      connection: local
+      user:
+        name: sysadm
+        uid: 1100
+        shell: /bin/bash
+        group: sudo
+        state: present
 
-- name: create the .ssh directory for the sysadm user and set permissions
-  hosts: localhost
-  file:
-    path: /home/sysadm/.ssh
-    state: directory
-    owner: sysadm
-    group: sysadm
-    mode: '0700'
+    - name: create the .ssh directory for the sysadm user and set permissions
+      hosts: localhost
+      file:
+        path: /home/sysadm/.ssh
+        state: directory
+        owner: sysadm
+        group: sysadm
+        mode: '0700'
 
-- name: Allow sysadm passwordless sudo
-  ansible.builtin.copy:
-    dest: /etc/sudoers.d/sysadm
-    content: "sysadm ALL=(ALL) NOPASSWD: ALL"
-    mode: '0440'
+    - name: Allow sysadm passwordless sudo
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/sysadm
+        content: "sysadm ALL=(ALL) NOPASSWD: ALL"
+        mode: '0440'
