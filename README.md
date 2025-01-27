@@ -5,12 +5,11 @@
     ```bash
     apt get install ansible git
     ```
-- Clone the repository using a PAT that will expire within a few hours 
-    - Login to github.com generate the token
-    - Clone the repository:
+- Clone the public repository 
     ```bash
     cd /root
-    git clone https://APSy:<TOKEN>@github.com/kdev-labs/sysadm-init.git
+    git clone https://github.com/kdev-labs/sysadm-init.git
+    git clone git@github.com:kdev-labs/sysadm-init.git
     ```
 - Run the init.yaml playbook create local users kregez/sysadm for further setup
     ```bash
